@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Plummer Louis HW 8</title>
+        <link rel=”stylesheet” href=”styles.css”>
+        <style>
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+                font-family: Calibri, sans-serif;
+            }
+            th {
+                background-color: lightgray;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+            img {
+                height: 200px;
+                width: 200px;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <h1><a href="../index.html">Link to Start Page</a></h1>
+        <div id="content"></div>
+        <label for="username">Enter a GitHub username:</label>
+        <input type="text" id="username">
+        <button onclick="getUserInfo()">Get User Info</button>
+
+        <h2>User Info:</h2>
+
+        <p id="picture"></p>
+
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Blog</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+	    </table>
+        <script>
+            function getUserInfo() {
+			const username = document.querySelector('#username').value;
+			const apiUrl = `https://api.github.com/users/${username}`;
+
+			fetch(apiUrl)
+				.then(response => response.json())
+				.then(data => {
+					const tableBody = document.querySelector('#user-table tbody');
+					tableBody.innerHTML = `
+						<tr>
+							<td>${data.name}</td>
+							<td>${data.blog}</td>
+							<td>${data.created_at}</td>
+						</tr>
+					`;
+                    const picture = document.querySelector('#picture');
+                    picture.innerHTML = `<img src="${data.avatar_url}" alt="User profile picture">`
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		}
+
+        </script>
+        <script src="ex2.js" defer></script>
+</body>
+</html>

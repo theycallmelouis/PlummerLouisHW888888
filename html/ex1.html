@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Plummer Louis HW 8</title>
+        <link rel=”stylesheet” href=”styles.css”>
+        <style>
+            table {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+                font-family: Calibri, sans-serif;
+            }
+            th {
+                background-color: lightgray;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+        </style>
+        
+        
+    </head>
+    <body>
+        <h1><a href="../index.html">Link to Start Page</a></h1>
+        <div id="content"></div>
+        <table id="paintings-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Year</th>
+                    <th>Style</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        
+        <script>
+            fetch('https://raw.githubusercontent.com/bpesquet/thejsway/master/resources/paintings.json')
+			.then(response => response.json())
+			.then(data => {
+				const tableBody = document.querySelector('#paintings-table tbody');
+				data.forEach(painting => {
+					const row = document.createElement('tr');
+					row.innerHTML = `
+						<td>${painting.title}</td>
+						<td>${painting.artist}</td>
+						<td>${painting.year}</td>
+						<td>${painting.style}</td>
+					`;
+					tableBody.appendChild(row);
+				});
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+        </script>
+        <script src="ex1.js" defer></script>
+</body>
+</html>
+

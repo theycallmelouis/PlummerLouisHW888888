@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Plummer Louis HW 8</title>
+        <link rel=”stylesheet” href=”styles.css”>
+        
+        
+    </head>
+    <body>
+        <h1><a href="../index.html">Link to Start Page</a></h1>
+        <div id="content"></div>
+        <script>
+            const name = "John Smith";
+            const countries = [
+                { name: "France", year: 2018 },
+                { name: "Italy", year: 2019 },
+                { name: "Spain", year: 2020 }
+            ];
+
+            const data = {
+                name: name,
+                countries: countries
+            };
+
+            fetch("https://thejsway-server.herokuapp.com/api/countries", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => console.log(data.message))
+            .catch(error => console.error(error));
+        </script>
+        <script src="ex3.js" defer></script>
+</body>
+</html>
